@@ -1,0 +1,71 @@
+@startuml BuilderPattern
+
+class Client {
+	+ doSomething()
+}
+
+note right of Client::doSomething
+b = new ConcreteBuilder1();
+d = new Director(b);
+d->make();
+Product1 p = b->getResult();
+end note
+
+abstract class Builder {
+	+ {abstract} reset()
+	+ {abstract} buildStepA()
+	+ {abstract} buildStepB()
+	+ {abstract} buildStepZ()
+}
+
+class ConcreteBuilder1 {
+	- result: Product1
+	+ reset()
+	+ buildStepA()
+	+ buildStepB()
+	+ buildStepZ()
+	+ getResult(): Product1
+}
+note right of ConcreteBuilder1::reset
+result = new Product1();
+end note
+
+note right of ConcreteBuilder1::getResult
+return result;
+end note
+
+Builder <|.. ConcreteBuilder1
+
+class ConcreteBuilder2 {
+	- result: Product2
+	+ reset()
+	+ buildStepA()
+	+ buildStepB()
+	+ buildStepZ()
+	+ getResult(): Product2
+}
+
+Builder <|.. ConcreteBuilder2
+
+class Director {
+	- builder: Builder
+	+ Director(builder)
+	+ changeBuilder(builder)
+	+ make(type: string)
+}
+
+note right of Director::make
+builder.reset();
+if (type == "simple") {
+	builder.buildStepA();
+} else {
+	builder.buildStepB();
+	builder.buildStepZ();
+}
+end note
+
+Director o-- Builder
+
+Client --> Director
+
+@enduml

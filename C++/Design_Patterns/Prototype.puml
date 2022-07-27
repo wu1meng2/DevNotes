@@ -1,0 +1,50 @@
+@startuml BasicProtoType
+
+class Client {
+	+ doSomethingWithProtoType(Prototype* existing)
+}
+
+note right of Client::doSomethingWithProtoType
+copy = existing->clone();
+end note
+
+abstract class Prototype {
+	+ {abstract} clone(): Prototype*
+}
+
+Client --> Prototype
+
+class ConcretePrototype {
+	- field1
+	+ ConcretePrototype(ConcretePrototype* prototype)
+	+ clone(): Prototype*
+}
+
+note right of ConcretePrototype::ConcretePrototype
+this->field1 = prototype.field1
+end note
+
+note left of ConcretePrototype::clone
+return new ConcretePrototype(this);
+end note
+
+Prototype <|.. ConcretePrototype
+
+class SubclassPrototype {
+	- field2
+	+ SubclassPrototype(SubclassPrototype* prototype)
+	+ clone(): Prototype*
+}
+
+note right of SubclassPrototype::SubclassPrototype
+ConcretePrototype(prototype);
+this->field2 = prototype->field2;
+end note
+
+note left of SubclassPrototype::clone
+return new SubclassPrototype(this);
+end note
+
+ConcretePrototype <|-- SubclassPrototype
+
+@enduml

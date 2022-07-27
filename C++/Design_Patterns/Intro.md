@@ -1,11 +1,11 @@
-Design Patterns
-Elements of reusable object-oriented software
+# Design Patterns
 
+## Object-oriented design
 OOD is based on objects to encapsulate data and behavior, it uses _sub-typing_ and _object composition_ to compose functionality into more complex ones.
 
-# Reusing functionality
+## Reusing functionality
 
-## Sub-typing & subclassing & inheritance & polymorphism & "is-a" relation
+### Sub-typing & subclassing & inheritance & polymorphism & "is-a" relation
 In OOD, the term `polymorphism` is commonly used to refer solely to `subtype polymorphism`, while the techniques of parametric polymorphism would be considered `generic programming`.
 
 **White-box reuse**: With inheritance, the internals of parent classes are often visible to subclasses.
@@ -17,7 +17,7 @@ In OOD, the term `polymorphism` is commonly used to refer solely to `subtype pol
 ![subtype](https://upload.wikimedia.org/wikipedia/en/thumb/d/d1/Inheritance.svg/350px-Inheritance.svg.png)
 Example of subtypes: where bird is the supertype and all others are subtypes as denoted by the arrow in UML notation
 
-## Object composition & "has-a" relation
+### Object composition & "has-a" relation
 Object composition is about combining objects within compound objects.
 
 When a composite objects
@@ -70,10 +70,10 @@ class University {
 #### Delegation
 Delegation enriches composition by forwarding requests or calls made to one of the class's internal components.
 
-## Parameterized types & generics & templates
-This technique defines a type without specifying all the other types it uses. The unspecified types are supplied as parameters at the point of use.\
+### Parameterized types & generics & templates
+This technique defines a type without specifying all the other types it uses. The unspecified types are supplied as parameters at the point of use.
 
-# Design for change
+### Design for change
 A design that doesn't take change into account risks major redesign in the future. Those changes might involve class redefinition and reimplementation, client modification, and retesting.
 
 Each design pattern lets some aspect of system structure vary independently of other aspects, thereby making a system more robust to a particular kind of change.

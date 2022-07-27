@@ -1,0 +1,54 @@
+@startuml FactoryMethodPatternMultipleProducts
+
+abstract class AbstractClient {
+	+ doSomethingWithProduct()
+	+ {abstract} factoryMethodA(): ProductA
+	+ {abstract} factoryMethodB(): ProductB
+	+ {abstract} factoryMethodC(): ProductC
+}
+note right of AbstractClient::doSomethingWithProduct
+auto pA = factoryMethodA();
+auto pB = factoryMethodB();
+auto pC = factoryMethodC();
+end note
+
+interface AbstractProductX
+class ConcreteProductXy
+AbstractProductX <|.. ConcreteProductXy
+
+class ConcreteClient1 {
+	+ factoryMethodA(): ProductA1
+	+ factoryMethodB(): ProductB1
+	+ factoryMethodC(): ProductC1
+}
+
+class ConcreteClient2 {
+	+ factoryMethodA(): ProductA2
+	+ factoryMethodB(): ProductB2
+	+ factoryMethodC(): ProductC2
+}
+
+note right of ConcreteClient1::factoryMethodA
+return new ConcreteProductA1();
+end note
+note right of ConcreteClient1::factoryMethodB
+return new ConcreteProductB1();
+end note
+note right of ConcreteClient1::factoryMethodC
+return new ConcreteProductC1();
+end note
+
+note right of ConcreteClient2::factoryMethodA
+return new ConcreteProductA2();
+end note
+note right of ConcreteClient2::factoryMethodB
+return new ConcreteProductB2();
+end note
+note right of ConcreteClient2::factoryMethodC
+return new ConcreteProductC2();
+end note
+
+AbstractClient <|.. ConcreteClient1
+AbstractClient <|.. ConcreteClient2
+
+@enduml

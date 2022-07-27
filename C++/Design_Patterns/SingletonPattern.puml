@@ -1,0 +1,26 @@
+@startuml SingletonPattern
+
+class Client {
+	+ doSomething()
+}
+
+note right of Client::doSomething
+auto instance = Singleton::getInstance();
+end note
+
+class Singleton {
+	- instance: Singleton
+	- Singleton()
+	+ {static} getInstance(): Singleton
+}
+
+Client --> Singleton
+
+note right of Singleton::getInstance()
+if (instance == null) {
+	instance = new Singleton();
+}
+return instance;
+end note
+
+@enduml

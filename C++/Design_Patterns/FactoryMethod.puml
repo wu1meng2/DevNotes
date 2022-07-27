@@ -1,0 +1,37 @@
+@startuml FactoryMethodPattern
+
+' Being Client means it will use the relevant products in some way
+abstract class AbstractClient {
+	+ doSomethingWithProduct()
+	+ {abstract} factoryMethod(): AbstractProduct
+}
+note right of AbstractClient::doSomethingWithProduct
+auto p = factoryMethod();
+end note
+
+note left of AbstractClient
+* Client has a factory **method**.
+* Factory Method is implemented
+by inheritance (**method overriding**)
+end note
+
+interface AbstractProduct {
+	+ {abstract} doStuff()
+}
+
+class ConcreteProduct {
+	+ doStuff()
+}
+
+AbstractProduct <|.. ConcreteProduct
+
+class ConcreteClient {
+	+ factoryMethod(): AbstractProduct
+}
+note right of ConcreteClient::factoryMethod
+return new ConcreteProduct();
+end note
+
+AbstractClient <|.. ConcreteClient
+
+@enduml

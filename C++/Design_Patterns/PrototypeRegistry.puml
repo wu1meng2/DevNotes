@@ -1,0 +1,54 @@
+@startuml ProtoTypeRegistry
+' The Prototype Registry provides an easy way to access frequently-used prototypes.
+' It stores a set of pre-built objects that are ready to be copied.
+class Client {
+	- registry: PrototypeRegistry
+	+ register(Prototype* existing)
+	+ doSomething()
+}
+
+note right of Client::register
+button = new Button(10, 40, "red");
+registry.addItem("LandingButton", button);
+end note
+
+note right of Client::doSomething
+auto button = registry.getByColor("red");
+end note
+
+class PrototypeRegistry {
+	- items: Prototype[]
+	+ addItem(id: string, p: Prototype)
+	+ getByColor(color: string): Prototype
+}
+
+Client *-- PrototypeRegistry
+
+note right of PrototypeRegistry::getByColor
+foreach (item in items)
+	if (item.getColor() == color)
+		return item.clone();
+end note
+
+abstract class Prototype {
+	+ {abstract} getColor(): string
+	+ {abstract} clone(): Prototype*
+}
+
+Client o-- Prototype
+
+class Button {
+	- x, y, color
+	+ Button(x, y, color)
+	+ Button(prototype)
+	+ getColor(): string
+	+ clone(): Prototype
+}
+
+Prototype <|.. Button
+
+note right of Button::clone
+return new Button(this);
+end note
+
+@enduml

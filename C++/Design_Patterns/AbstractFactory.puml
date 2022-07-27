@@ -1,0 +1,75 @@
+@startuml AbstractFactoryPattern
+' Being Client means it will use the relevant products in some way
+class Client {
+	- factory: AbstractFactory
+	+ Client(factory: AbstractFactory)
+	+ doSomethingWithProduct()
+}
+note right of Client::factory
+* Factory is a **member** of a Client
+* Abstract Factory Pattern is implemented
+by **Composition**.
+end note
+
+note right of Client::doSomethingWithProduct
+auto PA = factory.createProductA();
+auto PB = factory.createProductB();
+auto PC = factory.createProductC();
+end note
+
+abstract class AbstractFactory {
+	+ {abstract} createProductA(): AbstractProductA
+	+ {abstract} createProductB(): AbstractProductB
+	+ {abstract} createProductC(): AbstractProductC
+}
+Client o-- AbstractFactory
+
+class ConcreteFactory1 {
+	+ createProductA()
+	+ createProductB()
+	+ createProductC()
+}
+AbstractFactory <|.. ConcreteFactory1
+
+note right of ConcreteFactory1::createProductA
+return new ConcreteProductA1;
+end note
+
+note right of ConcreteFactory1::createProductB
+return new ConcreteProductB1;
+end note
+
+note right of ConcreteFactory1::createProductC
+return new ConcreteProductC1;
+end note
+
+class ConcreteFactory2 {
+	+ createProductA()
+	+ createProductB()
+	+ createProductC()
+}
+AbstractFactory <|.. ConcreteFactory2
+
+note right of ConcreteFactory2::createProductA
+return new ConcreteProductA2;
+end note
+
+note right of ConcreteFactory2::createProductB
+return new ConcreteProductB2;
+end note
+
+note right of ConcreteFactory2::createProductC
+return new ConcreteProductC2;
+end note
+
+
+abstract class AbstractProductX {
+	+ {abstract} doStuffX()
+}
+
+class ConcreteProductXy {
+	doStuffX();
+}
+AbstractProductX <|.. ConcreteProductXy
+
+@enduml
