@@ -1,0 +1,50 @@
+@startuml DecoratorPattern
+
+class Client {
+	+ doSomething()
+}
+note right of Client::doSomething
+a = new ConcreteComponent();
+b = new ConcreteDecorator1(a);
+c = new ConcreteDecorator2(a);
+end note
+
+interface Component {
+	+ {abstract} execute()
+}
+
+class ConcreteComponent {
+	+ execute()
+}
+
+class BaseDecorator {
+	- wrappee: Component
+	+ BaseDecorator(c: Component)
+	+ execute()
+}
+
+note right of BaseDecorator::wrappee
+wrappee = c;
+end note
+
+note right of BaseDecorator::execute
+wrappee->execute();
+end note
+
+class ConcreteDecoratorX {
+	+ execute()
+	+ extra()
+}
+
+note right of ConcreteDecoratorX::execute
+wrappee->execute();
+extra();
+end note
+
+Client --> Component
+Component <|.. ConcreteComponent
+Component --o BaseDecorator
+Component <|.. BaseDecorator
+BaseDecorator <|-- ConcreteDecoratorX
+
+@enduml
