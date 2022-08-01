@@ -1,0 +1,36 @@
+@startuml FacadePattern
+
+class Client {
+	- input
+	+ doSomething()
+}
+
+note right of Client::doSomething
+auto facade = Facade(...);
+facade.subsystemOperation(input);
+end note
+
+class Facade {
+	- linksToSubsystemObjects
+	- optionalAdditionalFacade
+	+ Facade(...)
+	+ subsystemOperation(input)
+}
+
+Client --> Facade
+
+class AdditionalFacade {
+	+ anotherOperation()
+}
+
+Facade *-- AdditionalFacade
+
+package Library {
+class SubsystemA
+class SubsystemZ
+}
+
+Facade o-- SubsystemA
+Facade o-- SubsystemZ
+
+@enduml
